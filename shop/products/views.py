@@ -4,4 +4,5 @@ from .models import Categories,Brands,Products,Tags
 # Create your views here.
 
 def homepage(request):
-    return render(request, 'index.html')
+    products = Products.objects.filter(homepage=True)
+    return render(request, 'index.html',{"products":products})

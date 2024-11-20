@@ -70,6 +70,7 @@ class Products(models.Model):
     image=models.ImageField(upload_to='', blank=True,null=True)
     date=models.DateTimeField(auto_now=True)
     tags=models.ManyToManyField(Tags, blank=True)
+    homepage=models.BooleanField(default=False)
 
 
     class Meta:
