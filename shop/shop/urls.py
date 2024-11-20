@@ -23,4 +23,5 @@ from products.views import *
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('',homepage),
+    path('<slug:slug>/',productdetail, name="productdetail"),
 ]+static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT) #this part 
