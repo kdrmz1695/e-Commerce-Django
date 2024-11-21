@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Categories, Brands, Products,Tags
+from .models import Categories, Brands, Products,Tags, Variations
 # Register your models here.
 
 
@@ -18,11 +18,15 @@ class BrandAdmin(admin.ModelAdmin):
     search_fields = ['name', 'seo_title', 'seo_description', 'slug']
 admin.site.register(Brands,BrandAdmin)
 
+class InlineVariations(admin.TabularInline):
+    model = Variations
+    extra = 1
 class ProductAdmin(admin.ModelAdmin):
     list_display = ['name', 'brand', 'price', 'category', 'discounted_price', 'is_active', 'image','date']
     list_filter = ['is_active']
-    search_fields = ['name', 'seo_title', 'seo_description', 'slug']
+    search_fields = ['name', 'seo_title', 'seo_description', 'slug','price','discounted_price','user']
+    inlines= [InlineVariations]
 
 admin.site.register(Products,ProductAdmin)
-
 admin.site.register(Tags)
+

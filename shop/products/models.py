@@ -80,3 +80,18 @@ class Products(models.Model):
         return self.name
 
 
+class Variations(models.Model):
+    product=models.ForeignKey(Products,on_delete=models.CASCADE)
+    parent=models.ForeignKey('self',on_delete=models.CASCADE, blank=True, null= True)
+    variation=models.CharField(max_length=155)
+    price=models.DecimalField(max_digits=10,decimal_places=2)
+    stock=models.IntegerField()
+    is_active=models.BooleanField(default=True)
+    image=models.ImageField(upload_to='', blank=True, null=True)
+
+    class Meta:
+        verbose_name_plural="Variations"
+        verbose_name="Variation"
+
+    def __str__(self):
+        return self.variation
