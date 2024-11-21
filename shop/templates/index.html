@@ -7,17 +7,17 @@ North e-Commerce
 <div class="container pt-5">
     <div class="row">
         {% for product in products %}
-        <div class="col-md-3 col-6 mt-3">
+        <div class="col-lg-3 col-md-4 col-sm-6 col-12 mt-3">
             <div class="card">
-              <img src="{{product.image.url}}" class="card-img-top" alt="...">
+              <img src="{{ product.image.url }}" class="card-img-top" alt="{{ product.name }}">
               <div class="card-body">
-                <h5 class="card-title">{{product.name}} </h5>
+                <h5 class="card-title">{{ product.name }}</h5>
                 <p class="card-text fs-5">
                     {% if product.discounted_price %}
-                    {{product.discounted_price}} €
-                    <del class="text-secondary fs-6">{{product.price}}€</del>
+                    {{ product.discounted_price }} €
+                    <del class="text-secondary fs-6">{{ product.price }}€</del>
                     {% else %}
-                    {{product.price}}€
+                    {{ product.price }}€
                     {% endif %}
                 </p>
                 <a href="{% url 'productdetail' product.slug %}" class="btn btn-primary">Buy Now</a>
@@ -27,4 +27,30 @@ North e-Commerce
         {% endfor %}
     </div>
 </div>
+
+<style>
+  .card {
+    min-width: 250px; 
+    max-width: 300px;
+    margin: auto;
+  }
+
+  .row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+  }
+
+  .card-img-top {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+  }
+
+  @media (max-width: 768px) {
+    .card {
+      flex: 0 1 45%;
+    }
+  }
+</style>
 {% endblock %}
