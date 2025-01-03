@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-# Create your models here.
+from django.utils.text import slugify
 
 
 class Categories(models.Model):  #how to create model
@@ -79,15 +79,20 @@ class Products(models.Model):
     def __str__(self):
         return self.name
 
-
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug=slugify(self.name)
+            super(Products,self).save(*args,**kwargs)
+        return self.slug
 class Variations(models.Model):
     product=models.ForeignKey(Products,on_delete=models.CASCADE)
+    parent=models.ForeignKey('self',on_delete=models.CASCADE,blank=True,null=True)
     parent=models.ForeignKey('self',on_delete=models.CASCADE, blank=True, null= True)
     variation=models.CharField(max_length=155)
     price=models.DecimalField(max_digits=10,decimal_places=2)
     stock=models.IntegerField()
     is_active=models.BooleanField(default=True)
-    image=models.ImageField(upload_to='', blank=True, null=True)
+    image=models.ImageField(upload_to='versionspictures', blank=True, null=True)
 
     class Meta:
         verbose_name_plural="Variations"

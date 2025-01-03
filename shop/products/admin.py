@@ -18,7 +18,7 @@ class BrandAdmin(admin.ModelAdmin):
     search_fields = ['name', 'seo_title', 'seo_description', 'slug']
 admin.site.register(Brands,BrandAdmin)
 
-class InlineVariations(admin.TabularInline):
+class InlineVariations(admin.StackedInline):
     model = Variations
     extra = 1
 class ProductAdmin(admin.ModelAdmin):
